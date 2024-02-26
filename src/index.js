@@ -53,7 +53,9 @@ async function handleResponse(request,env) {
 async function createPoem(input,env) {
 	const ai = new Ai(env.AI)
 	
-	const output = await ai.run('@cf/meta/llama-2-7b-chat-int8', {
-		prompt: 'Tell me about Workers AI'
+	const output = await ai.run('@cf/mistral/mistral-7b-instruct-v0.1', {
+		prompt: input
 	})
+
+	return output
 }
