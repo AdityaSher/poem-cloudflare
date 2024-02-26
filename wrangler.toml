@@ -2,6 +2,16 @@ name = "poem"
 main = "src/index.js"
 compatibility_date = "2024-02-23"
 
+[ai]
+binding = "AI"
+
+kv_namespaces = [
+    { binding = "poem", id = "2d5283f7a70e41a183ebc346c10db5a4" }
+]
+
+
+
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables
