@@ -6,7 +6,7 @@ compatibility_date = "2024-02-23"
 binding = "AI"
 
 kv_namespaces = [
-    { binding = "poem", id = "2d5283f7a70e41a183ebc346c10db5a4" }
+    { binding = "POEMS", id = "2d5283f7a70e41a183ebc346c10db5a4" }
 ]
 
 
