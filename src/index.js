@@ -24,9 +24,10 @@ async function handleResponse(request,env) {
 	const region = request.cf.region
 
 	//create the poem using Cloudflare AI
-	const prompt = `Write a poem using the users location details as shared: Continent: ${continent}, Country: ${country}, Region: ${region} `
+	const prompt = `You are now a poet, write a poem on the following region Continent: ${continent}, Country: ${country}, Region: ${region} `
 
-	const poem = await createPoem(prompt,env)
+	let poem = await createPoem(prompt,env)
+	poem = poem.replace(/\n/g, '<br>');
 
 	const html_style = "body{padding:6em; font-family: sans-serif;} h1{color:#f6821f;}";
 
@@ -39,7 +40,7 @@ async function handleResponse(request,env) {
 	  <style> ${html_style} </style>
 	</head>
 	<body>
-	  <h1>Geolocation: Hello World!</h1>
+	  <h1>Here's a poem for you</h1>
 	  ${html_content}
 	</body>`
 
@@ -54,8 +55,10 @@ async function createPoem(input,env) {
 	const ai = new Ai(env.AI)
 	
 	const output = await ai.run('@cf/mistral/mistral-7b-instruct-v0.1', {
-		prompt: input
+		prompt: input,
+		max_tokens: 1000
 	})
 
-	return output
+	console.log(JSON.stringify(output))
+	return output.response
 }
