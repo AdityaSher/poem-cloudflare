@@ -22,11 +22,22 @@ async function handleResponse(request,env) {
 	const continent = request.cf.continent
 	const country = request.cf.country
 	const region = request.cf.region
-
+	console.log(request.cf.city)
 	//create the poem using Cloudflare AI
 	const prompt = `You are now a poet, write a poem on the following region Continent: ${continent}, Country: ${country}, Region: ${region} `
 
-	let poem = await createPoem(prompt,env)
+	// create a hash and check if poem already exists
+	const currentHash = await createHash(continent,country,region)
+
+	const cachedPoem = await env.POEMS.get(currentHash)
+
+	let poem = cachedPoem
+
+	if(!cachedPoem){
+		poem = await createPoem(prompt,env)
+		await env.POEMS.put(currentHash,poem)
+	}
+
 	poem = poem.replace(/\n/g, '<br>');
 
 	const html_style = "body{padding:6em; font-family: sans-serif;} h1{color:#f6821f;}";
@@ -63,6 +74,7 @@ async function createPoem(input,env) {
 	return output.response
 }
 
+// Create a hash by combining the 3 strings and multiplying by 31 (2^5)
 async function createHash(continent,country,region){
 	const string = continent + country + region
 
