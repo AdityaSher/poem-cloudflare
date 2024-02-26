@@ -2,14 +2,12 @@ name = "poem"
 main = "src/index.js"
 compatibility_date = "2024-02-23"
 
-[ai]
-binding = "AI"
-
 kv_namespaces = [
-    { binding = "POEMS", id = "2d5283f7a70e41a183ebc346c10db5a4" }
+    { binding = "POEMS", id = "2d5283f7a70e41a183ebc346c10db5a4", preview_id = "13380ae8ab6440f6be07371b8473bc02"}
 ]
 
-
+[ai]
+binding = "AI"
 
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
